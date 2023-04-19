@@ -4,7 +4,7 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
-import PopupWithImage from './PopupWithImage';
+import ImagePopup from './ImagePopup';
 
 import '../index.css';
 
@@ -107,7 +107,7 @@ function App() {
         <button type="submit" className="popup__submit popup__submit_type_delete">Да</button>
       </PopupWithForm>
 
-      <PopupWithImage card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </>
   );
 }
