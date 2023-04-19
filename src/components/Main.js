@@ -2,8 +2,6 @@ import React from 'react';
 import { api } from '../utils/Api';
 import Card from './Card';
 
-
-
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [userName, setUserName] = React.useState('');
