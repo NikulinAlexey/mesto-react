@@ -8,28 +8,34 @@ import ImagePopup from './ImagePopup';
 
 function App() {
   function handleEditAvatarClick() {
-    document.querySelector('.popup_type_avatar').classList.add('popup_opened');
+    openEditAvatarPopup(!isEditAvatarPopupOpen);
   }
   function handleEditProfileClick() {
-    document.querySelector('.popup_type_edit').classList.add('popup_opened');
+    openEditProfilePopup(!isEditProfilePopupOpen);
   }
   function handleAddPlaceClick() {
-    document.querySelector('.popup_type_add').classList.add('popup_opened');
+    openAddPlacePopup(!isAddPlacePopupOpen);
   }
   function closeAllPopups() {
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
+    openEditProfilePopup(false);
+    openAddPlacePopup(false);
+    openEditAvatarPopup(false);
+    openDeletePopup(false);
+    openImagePopup(false);
   }
   function handleCardClick(card) {
-    setSelectedCard(card)
-    document.querySelector('.image-popup').classList.add('popup_opened')
+    setSelectedCard(card);
+    card ?
+      openImagePopup(!isImagePopupOpen)
+      :
+      openImagePopup(isImagePopupOpen)
   }
-  useEffect(() => {
-
-  })
+ 
+  const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
   const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, openAddPlacePopup] = useState(false);
-  const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
   const [isDeletePopupOpen, openDeletePopup] = useState(false);
+  const [isImagePopupOpen, openImagePopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
   return (
@@ -41,7 +47,7 @@ function App() {
       </div>
 
       
-      <PopupWithForm name="edit" title="Редактировать профиль" onClose={closeAllPopups} isOpened={isEditProfilePopupOpen} >
+      <PopupWithForm name="edit" title="Редактировать профиль" onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} text="Сохранить" >
         <input
           type="text"
           id="name-input"
@@ -64,10 +70,9 @@ function App() {
           required
         />
         <span id="job-input-error" className="popup__error"></span>
-        <button type="submit" className="popup__submit popup__submit_type_edit">Сохранить</button>
       </PopupWithForm>
 
-      <PopupWithForm name="add" title="Новое место" onClose={closeAllPopups} isOpened={isAddPlacePopupOpen}>
+      <PopupWithForm name="add" title="Новое место" onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} text="Сохранить">
         <input type="text"
           id="place-input"
           className="popup__input popup__input_type_place"
@@ -85,10 +90,9 @@ function App() {
           required
         />
         <span id="link-input-error" className="popup__error"></span>
-        <button type="submit" className="popup__submit popup__submit_type_add">Сохранить</button>
       </PopupWithForm>
 
-      <PopupWithForm name="avatar" title="Обновить аватар" onClose={closeAllPopups} isOpened={isEditAvatarPopupOpen}>
+      <PopupWithForm name="avatar" title="Обновить аватар" onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} text="Сохранить">
         <input
           type="url"
           id="avatar-input"
@@ -99,14 +103,12 @@ function App() {
           minLength="2"
         />
         <span id="avatar-input-error" className="popup__error"></span>
-        <button type="submit" className="popup__submit popup__submit_type_avatar">Сохранить</button>
       </PopupWithForm>
 
-      <PopupWithForm name="delete" title="Вы уверены?" onClose={closeAllPopups} isOpened={isDeletePopupOpen}>
-        <button type="submit" className="popup__submit popup__submit_type_delete">Да</button>
+      <PopupWithForm name="delete" title="Вы уверены?" onClose={closeAllPopups} isOpen={isDeletePopupOpen} text="Да">
       </PopupWithForm>
-
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
     </>
   );
 }

@@ -21,14 +21,14 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       .finally(() => {
         
       })
-  }, []);
+  },[]);
 
   useEffect(() => {
     api.getInitialCards()
       .then((res) => {
         setCards(res)
       })
-  }, []);
+  },[]);
 
   return (
     <main className="content">
