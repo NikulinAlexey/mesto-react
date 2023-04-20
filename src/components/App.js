@@ -31,7 +31,7 @@ function App() {
   const [isAddPlacePopupOpen, openAddPlacePopup] = React.useState(false);
   const [isEditAvatarPopupOpen, openEditAvatarPopup] = React.useState(false);
   const [isDeletePopupOpen, openDeletePopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   return (
     <>
