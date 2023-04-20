@@ -1,13 +1,10 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-
-import '../index.css';
-
 
 function App() {
   function handleEditAvatarClick() {
@@ -26,12 +23,14 @@ function App() {
     setSelectedCard(card)
     document.querySelector('.image-popup').classList.add('popup_opened')
   }
+  useEffect(() => {
 
-  const [isEditProfilePopupOpen, openEditProfilePopup] = React.useState(false);
-  const [isAddPlacePopupOpen, openAddPlacePopup] = React.useState(false);
-  const [isEditAvatarPopupOpen, openEditAvatarPopup] = React.useState(false);
-  const [isDeletePopupOpen, openDeletePopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
+  })
+  const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
+  const [isAddPlacePopupOpen, openAddPlacePopup] = useState(false);
+  const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
+  const [isDeletePopupOpen, openDeletePopup] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
 
   return (
     <>

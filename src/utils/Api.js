@@ -13,9 +13,7 @@ class Api {
 }
   getProfileInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d'
-      }
+      headers: this._headers
     })
       .then(this._checkResponse)
   }
@@ -23,9 +21,7 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d'
-      }
+      headers: this._headers
     })
       .then(this._checkResponse)
   }
@@ -33,10 +29,7 @@ class Api {
   editProfileInfo(userData) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d',
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: `${userData.name}`,
         about: `${userData.job}`
@@ -48,10 +41,7 @@ class Api {
   addNewCard(cardData) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d',
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: `${cardData.place}`,
         link: `${cardData.link}`
@@ -78,10 +68,7 @@ class Api {
   addLike(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d',
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         likes: [],
         _id: `${id}`,
@@ -93,10 +80,7 @@ class Api {
   removeLike(id) {
     return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d',
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         likes: [],
         _id: `${id}`,
@@ -108,10 +92,7 @@ class Api {
   changeAvatar(inputValue) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d',
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: `${inputValue}`,
       })

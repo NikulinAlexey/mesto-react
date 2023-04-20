@@ -1,3 +1,19 @@
+# Сайт: Место на React
+
+Этот проект я выполняю в рамках обучения в Я.Практикуме, проверочная работа #10(Сдача проекта Mesto: портирование на «Реакт»).
+Работа представляет из себя интерактивную страницу, где можно редактировать:
+
+1) Имя пользователя
+2) Его профессию
+3) Добавлять карточки
+4) Удалять карточки, только которое создал сам пользователь 
+5) Лайкать или убирать свой лайк 
+
+В этом проекте я использую возможности HTML, CSS, JSX.
+
+
+* [Ссылка на сайт](https://nikulinalexey.github.io/mesto-react/)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +84,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+

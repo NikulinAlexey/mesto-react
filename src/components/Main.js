@@ -1,16 +1,15 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '../utils/Api';
 import Card from './Card';
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setuserDescription] = React.useState('');
-  const [userAvatar, setAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+  const [userName, setUserName] = useState('');
+  const [userDescription, setuserDescription] = useState('');
+  const [userAvatar, setAvatar] = useState('');
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
-    api.getProfileInfo(setSearchQuery)
+  useEffect(() => {
+    api.getProfileInfo()
       .then((res) => {
         setUserName(res.name);
         setuserDescription(res.about);
@@ -22,14 +21,14 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       .finally(() => {
         
       })
-  }, [userName, userDescription, userAvatar]);
+  }, []);
 
-  React.useEffect(() => {
-    api.getInitialCards(setSearchQuery)
+  useEffect(() => {
+    api.getInitialCards()
       .then((res) => {
         setCards(res)
       })
-  }, [searchQuery]);
+  }, []);
 
   return (
     <main className="content">
@@ -49,8 +48,8 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       </section>
 
       <section className="elements">
-        {cards.map(({id, ...card}, i) => (
-          <Card key={i} card={card} name={card.name} link={card.link} likes={card.likes.length} onCardClick={onCardClick} />
+        {cards.map(({_id, ...card}) => (
+          <Card key={_id} card={card} name={card.name} link={card.link} likes={card.likes.length} onCardClick={onCardClick} />
           ))}
       </section>
     </main>
