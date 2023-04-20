@@ -8,33 +8,33 @@ import ImagePopup from './ImagePopup';
 
 function App() {
   function handleEditAvatarClick() {
-    openEditAvatarPopup(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
   }
   function handleEditProfileClick() {
-    openEditProfilePopup(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   }
   function handleAddPlaceClick() {
-    openAddPlacePopup(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   }
   function closeAllPopups() {
-    openEditProfilePopup(false);
-    openAddPlacePopup(false);
-    openEditAvatarPopup(false);
-    openDeletePopup(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsDeletePopupOpen(false);
     openImagePopup(false);
   }
   function handleCardClick(card) {
     setSelectedCard(card);
-    card ?
-      openImagePopup(!isImagePopupOpen)
+    selectedCard ?
+      openImagePopup(true)
       :
-      openImagePopup(isImagePopupOpen)
+      openImagePopup({})
   }
  
-  const [isEditAvatarPopupOpen, openEditAvatarPopup] = useState(false);
-  const [isEditProfilePopupOpen, openEditProfilePopup] = useState(false);
-  const [isAddPlacePopupOpen, openAddPlacePopup] = useState(false);
-  const [isDeletePopupOpen, openDeletePopup] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [isImagePopupOpen, openImagePopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
 
@@ -45,7 +45,6 @@ function App() {
         <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
         <Footer />
       </div>
-
       
       <PopupWithForm name="edit" title="Редактировать профиль" onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} text="Сохранить" >
         <input

@@ -28,6 +28,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       .then((res) => {
         setCards(res)
       })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+
+      })
   },[]);
 
   return (
@@ -48,8 +54,8 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       </section>
 
       <section className="elements">
-        {cards.map(({_id, ...card}) => (
-          <Card key={_id} card={card} name={card.name} link={card.link} likes={card.likes.length} onCardClick={onCardClick} />
+        {cards.map(({ _id, ...card }) => (
+          <Card key={_id} card={card} onCardClick={onCardClick} />
           ))}
       </section>
     </main>
