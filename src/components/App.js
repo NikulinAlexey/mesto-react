@@ -26,7 +26,6 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
   }
-  console.log('обновлено')
  
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
