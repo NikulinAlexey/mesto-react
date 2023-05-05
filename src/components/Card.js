@@ -1,9 +1,22 @@
-import React from 'react';
+import { useContext } from 'react';
+import { CurrentUserContext } from './contexts/CurrentUserContext';
 
-function Card({ card, onCardClick}) {
+function Card({ card, onCardClick, onCardLike, setIsDeletePopupOpen }) {
+  const currentUser = useContext(CurrentUserContext);
+  
+  const isOwn = card.owner._id === currentUser._id; 
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const cardLikeButtonClassName = (`element__like ${isLiked && 'element__like_active'}`);
+
   function handleClick() {
     onCardClick(card);
   } 
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+  function handleOpenDeletePopup() {
+    setIsDeletePopupOpen(true)
+  }
 
   return (
     <article className="element">
@@ -11,11 +24,11 @@ function Card({ card, onCardClick}) {
       <div className="element__text">
         <h2 className="element__title">{card.name}</h2>
         <div className="element__like-container">
-          <button className="element__like" type="button" aria-label="Лайк"></button>
+          <button className={cardLikeButtonClassName} type="button" aria-label="Лайк" onClick={handleLikeClick}></button>
           <div className="element__like-count">{card.likes.length}</div>
         </div>
       </div>
-      <button className="element__trash"></button>
+      {isOwn && <button className="element__trash" onClick={handleOpenDeletePopup}></button>}
     </article>
   );
 }

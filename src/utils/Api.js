@@ -32,7 +32,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({
         name: `${userData.name}`,
-        about: `${userData.job}`
+        about: `${userData.about}`
       })
     })
       .then(this._checkResponse)
@@ -88,6 +88,15 @@ class Api {
     })
       .then(this._checkResponse)
   }
+  changeLikeCardStatus(id, isLiked) {
+    return (
+      isLiked ? (
+        this.removeLike(id)
+      ) : (
+        this.addLike(id)
+        )
+    )
+  }
 
   changeAvatar(inputValue) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
@@ -101,4 +110,5 @@ class Api {
   }
 }
 
-export const api = new Api({ baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-62', headers: { authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d', 'Content-Type': 'application/json' } })
+const api = new Api({ baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-62', headers: { authorization: '380de586-8df7-40d5-9ea1-f2891fd44b6d', 'Content-Type': 'application/json' } });
+export default api;
