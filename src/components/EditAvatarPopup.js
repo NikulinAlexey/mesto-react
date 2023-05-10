@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
-
 import { CurrentUserContext } from "./contexts/CurrentUserContext";
+
 import PopupWithForm from "./PopupWithForm";
 
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, buttonText }) {
   const currentUser = useContext(CurrentUserContext);
 
   const avatarRef = useRef('');
@@ -23,7 +23,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   }
 
   return (
-    <PopupWithForm name="avatar" title="Обновить аватар" onClose={onClose} isOpen={isOpen} text="Сохранить" onSubmit={handleSubmit}>
+    <PopupWithForm name="avatar" title="Обновить аватар" onClose={onClose} isOpen={isOpen} text={buttonText} onSubmit={handleSubmit}>
       <input
         required
         value={avatar}

@@ -1,8 +1,10 @@
 import {  useContext } from 'react';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
-import Card from './Card';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, setIsDeletePopupOpen, cards }) {
+import Card from './Card';
+import Spinner from './Spinner';
+
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, setIsDeletePopupOpen, cards, onCardDeleteClick, isSpinnerVisible }) {
   const currentUser = useContext(CurrentUserContext);
   
   return (
@@ -23,12 +25,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
       </section>
 
       <section className="elements">
+        <Spinner isSpinnerVisible={isSpinnerVisible} />
         {cards.map((card) => (
-          <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} setIsDeletePopupOpen={setIsDeletePopupOpen}/>
+          <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} handleDelete={onCardDeleteClick} setIsDeletePopupOpen={setIsDeletePopupOpen}/>
           ))}
       </section>
     </main>
-    
   );
 }
 

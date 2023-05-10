@@ -3,7 +3,7 @@ import { CurrentUserContext } from './contexts/CurrentUserContext';
 
 import PopupWithForm from "./PopupWithForm";
 
-function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
+function EditProfilePopup({ onClose, isOpen, onUpdateUser, buttonText }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
@@ -30,7 +30,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser }) {
   }
 
   return (
-    <PopupWithForm name="edit" title="Редактировать профиль" onClose={onClose} isOpen={isOpen} text="Сохранить" onSubmit={handleSubmit} >
+    <PopupWithForm name="edit" title="Редактировать профиль" onClose={onClose} isOpen={isOpen} text={buttonText} onSubmit={handleSubmit} >
       <input
         required
         type="text"

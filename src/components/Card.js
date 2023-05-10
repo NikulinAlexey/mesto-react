@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from './contexts/CurrentUserContext';
 
-function Card({ card, onCardClick, onCardLike, setIsDeletePopupOpen }) {
+function Card({ card, onCardClick, onCardLike, setIsDeletePopupOpen, handleDelete }) {
   const currentUser = useContext(CurrentUserContext);
   
   const isOwn = card.owner._id === currentUser._id; 
@@ -14,8 +14,9 @@ function Card({ card, onCardClick, onCardLike, setIsDeletePopupOpen }) {
   function handleLikeClick() {
     onCardLike(card);
   }
-  function handleOpenDeletePopup() {
-    setIsDeletePopupOpen(true)
+  function handleConfirmPopup() {
+    handleDelete(card);
+    setIsDeletePopupOpen(true);
   }
 
   return (
@@ -28,7 +29,7 @@ function Card({ card, onCardClick, onCardLike, setIsDeletePopupOpen }) {
           <div className="element__like-count">{card.likes.length}</div>
         </div>
       </div>
-      {isOwn && <button className="element__trash" onClick={handleOpenDeletePopup}></button>}
+      {isOwn && <button className="element__trash" onClick={handleConfirmPopup}></button>}
     </article>
   );
 }

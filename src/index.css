@@ -18,6 +18,9 @@
 @import url(./blocks/profile/__job/profile__job.css);
 @import url(./blocks/profile/__main/profile__main.css);
 
+@import url(./blocks/spinner/spinner.css);
+@import url(./blocks/spinner/_visible/spinner_visible.css);
+
 @import url(./blocks/elements/elements.css);
 @import url(./blocks/element/element.css);
 @import url(./blocks/element/__image/element__image.css);
