@@ -38,7 +38,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
   function handleChangeName(e) {
     setName(e.target.value);
 
-   if (name.length >= 2 ) {
+    if (name.length >= 2) {
       setIsNameInputValid(true);
     }
     else {
@@ -50,7 +50,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
   function handleChangeAbout(e) {
     setDescription(e.target.value);
 
-    if (description.length >= 2) {
+    if ( description.length >= 2 ) {
       setIsDescriptionInputValid(true);
     }
     else {
@@ -59,15 +59,14 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
 
     setIsFirstRenderJob(false)
   }
-
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-    
+
   }, [currentUser]);
 
   useEffect(() => {
-    if ((isNameInputValid && isDescriptionInputValid) || !isFirstRenderJob || !isFirstRenderName) {
+    if ((isNameInputValid && isDescriptionInputValid) && (isFirstRenderJob === false || isFirstRenderName === false)) {
       setIsFormValid(true);
     }
     else {
