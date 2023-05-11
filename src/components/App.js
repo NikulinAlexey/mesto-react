@@ -17,8 +17,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState(null);
-  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCardToDelete, setSelectedCardToDelete] = useState(null);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -202,13 +202,13 @@ function App() {
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} buttonText={buttonTextSavePopup} />
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} textOfButton={buttonTextSavePopup} />
       
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} buttonText={buttonTextSavePopup} />
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} textOfButton={buttonTextSavePopup} />
       
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} buttonText={buttonTextSavePopup} />
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} textOfButton={buttonTextSavePopup} />
       
-      <ConfirmPopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} onDelete={handleCardDelete} card={selectedCardToDelete} buttonText={buttonTextConfirmPopup} />
+      <ConfirmPopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} onDelete={handleCardDelete} card={selectedCardToDelete} textOfButton={buttonTextConfirmPopup} />
 
     </CurrentUserContext.Provider>
   );

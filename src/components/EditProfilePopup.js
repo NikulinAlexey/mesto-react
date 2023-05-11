@@ -3,17 +3,21 @@ import { CurrentUserContext } from './contexts/CurrentUserContext';
 
 import PopupWithForm from "./PopupWithForm";
 
-function EditProfilePopup({ onClose, isOpen, onUpdateUser, buttonText }) {
+function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
-    
+  const [isFirstRenderJob, setIsFirstRenderJob] = useState(true);
+  const [isFirstRenderName, setIsFirstRenderName] = useState(true);
+  
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isNameInputValid, setIsNameInputValid] = useState(false);
+  const [isDescriptionInputValid, setIsDescriptionInputValid] = useState(false);
+  
+  const inputErrorText = 'Текст должен быть не короче 2 символов.';
+  
   function handleSubmit(e) {
     e.preventDefault();
     
@@ -22,42 +26,84 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, buttonText }) {
       about: description,
     });
   }
+  function closeByCloseIcon() {
+    onClose();
+
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+
+    setIsFirstRenderJob(true);
+    setIsFirstRenderName(true);
+  }
   function handleChangeName(e) {
-    setName(e.target.value)
+    setName(e.target.value);
+
+   if (name.length >= 2 ) {
+      setIsNameInputValid(true);
+    }
+    else {
+      setIsNameInputValid(false)
+    }
+
+    setIsFirstRenderName(false)
   }
   function handleChangeAbout(e) {
-    setDescription(e.target.value)
+    setDescription(e.target.value);
+
+    if (description.length >= 2) {
+      setIsDescriptionInputValid(true);
+    }
+    else {
+      setIsDescriptionInputValid(false)
+    }
+
+    setIsFirstRenderJob(false)
   }
 
+  useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+    
+  }, [currentUser]);
+
+  useEffect(() => {
+    if ((isNameInputValid && isDescriptionInputValid) || !isFirstRenderJob || !isFirstRenderName) {
+      setIsFormValid(true);
+    }
+    else {
+      setIsFormValid(false);
+    }
+  }, [isNameInputValid, isDescriptionInputValid, isFirstRenderJob, isFirstRenderName]);
+
   return (
-    <PopupWithForm name="edit" title="Редактировать профиль" onClose={onClose} isOpen={isOpen} text={buttonText} onSubmit={handleSubmit} >
+    <PopupWithForm name="edit" title="Редактировать профиль" onClose={closeByCloseIcon} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isFormValid}>
       <input
         required
         type="text"
         name="name"
         value={name}
-        minLength="2"
-        maxLength="40"
         id="name-input"
         placeholder="Имя"
         onChange={handleChangeName}
-        className="popup__input popup__input_type_name"
+        className={`popup__input popup__input_type_name ${!isNameInputValid && !isFirstRenderName ? 'popup__input_type_error' : ''}`}
       />
-      <span id="name-input-error" className="popup__error"></span>
+      <span id="name-input-error" className="popup__error">
+        {!isNameInputValid && !isFirstRenderName ? inputErrorText : ''}
+      </span>
 
       <input
         required
         name="job"
         type="text"
-        minLength="2"
         id="job-input"
-        maxLength="200"
         value={description}
         placeholder="Профессия"
         onChange={handleChangeAbout}
-        className="popup__input popup__input_type_job"
+        className={`popup__input popup__input_type_job ${!isDescriptionInputValid && !isFirstRenderJob ? 'popup__input_type_error' : ''}`}
       />
-      <span id="job-input-error" className="popup__error"></span>
+      <span id="job-input-error" className="popup__error">
+        {!isDescriptionInputValid && !isFirstRenderJob ? inputErrorText : ''}
+      </span>
     </PopupWithForm>
   )
 }
