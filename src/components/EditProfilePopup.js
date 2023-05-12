@@ -50,7 +50,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
   function handleChangeAbout(e) {
     setDescription(e.target.value);
 
-    if ( description.length >= 2 ) {
+    if (description.length >= 2 ) {
       setIsDescriptionInputValid(true);
     }
     else {
@@ -62,8 +62,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-
-  }, [currentUser]);
+  }, [currentUser]); 
 
   useEffect(() => {
     if ((isNameInputValid && isDescriptionInputValid) && (isFirstRenderJob === false || isFirstRenderName === false)) {
@@ -80,7 +79,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
         required
         type="text"
         name="name"
-        value={name}
+        value={name || ''}
         id="name-input"
         placeholder="Имя"
         onChange={handleChangeName}
@@ -95,7 +94,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
         name="job"
         type="text"
         id="job-input"
-        value={description}
+        value={description || ''}
         placeholder="Профессия"
         onChange={handleChangeAbout}
         className={`popup__input popup__input_type_job ${!isDescriptionInputValid && !isFirstRenderJob ? 'popup__input_type_error' : ''}`}
