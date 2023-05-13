@@ -1,58 +1,49 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, textOfButton }) {
-  const avatarRef = useRef('');
-  const [avatar, setAvatar] = useState('');
+  
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
-  const [isFormValid, setIsFormValid] = useState(false);
-  const avatarErrorText = 'Некорректная ссылка на изображение.';
-
+  function handleChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: target.validationMessage });
+    setIsValid(target.closest('form').checkValidity());
+  };
 
   useEffect(() => {
-    const regLink = /^((ftp|http|https):\/\/)?(www\.)?([A-Za-zА-Яа-я0-9]{1}[A-Za-zА-Яа-я0-9\-]*\.?)*\.{1}[A-Za-zА-Яа-я0-9-]{2,8}(\/([\w#!:.?+=&%@!\-\/])*)?/;
-    const isLinkOk = regLink.test(avatar);
-
-    if (isLinkOk) {
-      setIsFormValid(true);
-    }
-    else {
-      setIsFormValid(false)
-    }
-  }, [avatar]);
+    setValues({ avatar: '' });
+    setErrors({});
+    setIsValid(false);
+  }, [isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
     
-    onUpdateAvatar(`${avatarRef.current.value}`)
-    setAvatar('');
+    onUpdateAvatar(`${values.avatar}`);
   }
-  function handleChangeAvatar(e) {
-    setAvatar(e.target.value)
-  }
-  function closeByCloseIcon() {
-    onClose()
-
-    setAvatar('');
-  }
-
+ 
   return (
-    <PopupWithForm name="avatar" title="Обновить аватар" onClose={closeByCloseIcon} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isFormValid}>
+    <PopupWithForm name="avatar" title="Обновить аватар" onClose={onClose} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isValid}>
       <input
         required
-        value={avatar}
-        onChange={handleChangeAvatar}
-        ref={avatarRef}
         type="url"
         name="avatar"
         minLength="2"
+        value={values.avatar || ''}
+        onChange={handleChange}
         id="avatar-input"
         placeholder="Ссылка на картинку"
-        className={`popup__input popup__input_type_avatar ${!isFormValid && avatar ? 'popup__input_type_error' : ''}`}
+        className={`popup__input popup__input_type_avatar ${errors.avatar === undefined || errors.avatar === '' ? '' : 'popup__input_type_error'}`}
       />
-      <span id="avatar-input-error" className="popup__error">{!isFormValid && avatar ? avatarErrorText : '' }</span>
+      <span id="avatar-input-error" className="popup__error">{errors.avatar === undefined ? '' : errors.avatar  }</span>
     </PopupWithForm>  
   )
 }

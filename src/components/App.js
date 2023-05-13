@@ -17,14 +17,17 @@ function App() {
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState(null);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCardToDelete, setSelectedCardToDelete] = useState(null);
+
+  const [isSpinnerVisible, setIsSpinnerVisible] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
   const [buttonTextConfirmPopup, setButtonTextConfirmPopup] = useState('Да');
   const [buttonTextSavePopup, setButtonTextSavePopup] = useState('Сохранить');
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  
 
   // Смена state попапов:
   function closeAllPopups() {
@@ -77,14 +80,11 @@ function App() {
       .then(() => {
         closeAllPopups()
       })
-      .then(() => {
-        setButtonTextConfirmPopup('Да');
-      })
       .catch((err) => {
         console.log(err)
       })
       .finally(() => {
-        
+        setButtonTextConfirmPopup('Да');
       })
   }
   function handleUpdateUser(userData) {
@@ -97,14 +97,11 @@ function App() {
       .then(() => {
         closeAllPopups()
       })
-      .then(() => {
-        setButtonTextSavePopup('Сохранить')
-      })
       .catch((err) => {
         console.log(err)
       })
       .finally(() => {
-
+        setButtonTextSavePopup('Сохранить')
       })
   }
   function handleAddPlaceSubmit(cardData) {
@@ -117,14 +114,11 @@ function App() {
       .then(() => {
         closeAllPopups()
       })
-      .then(() => {
-        setButtonTextSavePopup('Сохранить')
-      })
       .catch((err) => {
         console.log(err)
       })
       .finally(() => {
-        
+        setButtonTextSavePopup('Сохранить')
       })
   }
   function handleUpdateAvatar(avatarInputValue) {
@@ -141,14 +135,11 @@ function App() {
       .then(() => {
         closeAllPopups()
       })
-      .then(() => {
-        setButtonTextSavePopup('Сохранить')
-      })
       .catch((err) => {
         console.log(err)
       })
       .finally(() => {
-        
+        setButtonTextSavePopup('Сохранить')
       })
   }
   useEffect(() => {
@@ -158,14 +149,11 @@ function App() {
       .then((res) => {
         setCards(res)
       })
-      .then(() => {
-        setIsSpinnerVisible(false)
-      })
       .catch((err) => {
         console.log(err)
       })
       .finally(() => {
-
+        setIsSpinnerVisible(false)
       })
   }, []);
   useEffect(() => {
