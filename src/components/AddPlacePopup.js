@@ -1,20 +1,9 @@
-import { useState, useEffect } from "react";
-
 import PopupWithForm from "./PopupWithForm";
+import useFormWithValidation from "../hooks/useValidationForm";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, textOfButton }) {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
+  const { values, handleChange, resetForm, isValid, errors } = useFormWithValidation();
 
-  function handleChange(e) {
-    const target = e.target;
-    const name = target.name;
-    const value = target.value;
-    setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
-    setIsValid(target.closest('form').checkValidity());
-  };
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -22,16 +11,15 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, textOfButton }) {
       link: values.link,
       place: values.place
     })
+    resetForm();
+  }
+  function closeByCloseIcon() {
+    onClose();
+    resetForm();
   }
 
-  useEffect(() => {
-    setValues({ place: '', link: '' });
-    setErrors({});
-    setIsValid(false);
-  }, [isOpen]);
-
   return (
-    <PopupWithForm name="add" title="Новое место" onClose={onClose} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isValid}>
+    <PopupWithForm name="add" title="Новое место" onClose={closeByCloseIcon} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isValid}>
       <input
         required
         type="text"

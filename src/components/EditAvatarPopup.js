@@ -1,37 +1,24 @@
-import { useEffect, useState } from "react";
-
-
+import useFormWithValidation from "../hooks/useValidationForm";
 import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, textOfButton }) {
-  
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
-
-  function handleChange(e) {
-    const target = e.target;
-    const name = target.name;
-    const value = target.value;
-    setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
-    setIsValid(target.closest('form').checkValidity());
-  };
-
-  useEffect(() => {
-    setValues({ avatar: '' });
-    setErrors({});
-    setIsValid(false);
-  }, [isOpen]);
+  const { values, handleChange, resetForm, isValid, errors } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
     
     onUpdateAvatar(`${values.avatar}`);
+
+    resetForm();
+  }
+
+  function closeByCloseIcon() {
+    onClose();
+    resetForm();
   }
  
   return (
-    <PopupWithForm name="avatar" title="Обновить аватар" onClose={onClose} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isValid}>
+    <PopupWithForm name="avatar" title="Обновить аватар" onClose={closeByCloseIcon} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isValid}>
       <input
         required
         type="url"

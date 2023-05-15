@@ -1,32 +1,13 @@
-import { useState, useContext, useEffect } from "react";
-import { CurrentUserContext } from './contexts/CurrentUserContext';
+import { useContext, useEffect } from "react";
+import useFormWithValidation from "../hooks/useValidationForm";
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 
 import PopupWithForm from "./PopupWithForm";
 
 function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
   const currentUser = useContext(CurrentUserContext);
-
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
-
-  function handleChange (e) {
-    const target = e.target;
-    const name = target.name;
-    const value = target.value;
-    setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
-    setIsValid(target.closest('form').checkValidity());
-  };
-  
-  useEffect(() => {
-    if (values.name === currentUser.name && values.job === currentUser.about) {
-      setIsValid(false);
-    }
-    else {
-      setIsValid(true)
-    }
-  }, [currentUser, values]);
+  const { values, handleChange, resetForm, isValid, errors } = useFormWithValidation();
   
   function handleSubmit(e) {
     e.preventDefault();
@@ -37,8 +18,8 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
     });
   }
   useEffect(() => {
-    setValues({ name: currentUser.name, job: currentUser.about });
-  }, [currentUser, isOpen]);
+    resetForm({ name: currentUser.name, job: currentUser.about });
+  }, [currentUser, isOpen, resetForm]);
 
   return (
     <PopupWithForm name="edit" title="Редактировать профиль" onClose={onClose} isOpen={isOpen} text={textOfButton} onSubmit={handleSubmit} isFormValid={isValid}>
