@@ -32,7 +32,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, textOfButton }) {
         value={values.place || ''}
         className={`popup__input popup__input_type_place ${errors.place === undefined || errors.place === '' ? '' : 'popup__input_type_error'}`}
       />
-      <span id="place-input-error" className="popup__error">{errors.place === undefined ? '' : errors.place}</span>
+      <span id="place-input-error" className="popup__error">{errors?.place}</span>
       <input
         required
         type="url"
@@ -44,7 +44,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, textOfButton }) {
         placeholder="Ссылка на картинку"
         className={`popup__input popup__input_type_link ${errors.link === undefined || errors.link === '' ? '' : 'popup__input_type_error'}`}
       />
-      <span id="link-input-error" className="popup__error">{errors.link === undefined ? '' : errors.link}</span>
+      <span id="link-input-error" className="popup__error">{errors?.link}</span>
     </PopupWithForm>
   )
 }

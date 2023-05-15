@@ -36,7 +36,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
         className={`popup__input popup__input_type_name ${errors.name === undefined || errors.name === '' ? '' : 'popup__input_type_error'}`}
       />
       <span id="name-input-error" className="popup__error">
-        {errors.name === undefined ? '' : errors.name}
+        {errors?.name}
       </span>
 
       <input
@@ -51,7 +51,7 @@ function EditProfilePopup({ onClose, isOpen, onUpdateUser, textOfButton }) {
         className={`popup__input popup__input_type_job ${errors.job === undefined || errors.job === '' ? '' : 'popup__input_type_error'}`}
       />
       <span id="job-input-error" className="popup__error">
-        {errors.job === undefined ? '' : errors.job}
+        {errors?.job}
       </span>
     </PopupWithForm>
   )

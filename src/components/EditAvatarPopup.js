@@ -28,7 +28,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, textOfButton }) {
         placeholder="Ссылка на картинку"
         className={`popup__input popup__input_type_avatar ${errors.avatar === undefined || errors.avatar === '' ? '' : 'popup__input_type_error'}`}
       />
-      <span id="avatar-input-error" className="popup__error">{errors.avatar === undefined ? '' : errors.avatar  }</span>
+      <span id="avatar-input-error" className="popup__error">{errors?.avatar}</span>
     </PopupWithForm>  
   )
 }
